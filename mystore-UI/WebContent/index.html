@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html ng-app="mystoreSpringApp">
+<head>
+	<title>JEE/REST Prototype</title>
+    <!-- Bootstrap: Latest compiled and minified CSS for Bootstrap-->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+	<!-- Optional Bootstrap theme -->
+<!-- 	<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet" type="text/css"/> -->
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+</head>
+<body>
+    <!-- 
+        bootstrap fluid layout
+        (12 columns: span 10, offset 1 centers the content and adds a margin on each side)
+    -->
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span10 offset1">
+                <h1 class="well" >
+                    My Store (SPA Prototype Using Java EE & REST) 
+                </h1>
+                <div ng-view></div>
+            </div>
+        </div>
+    </div>
+
+	<!--  Load All Required Javascript -->
+	
+	<!-- JQuery (Required by Bootstrap -->
+	<script src="frameworks/jquery-2.1.3.min.js"></script>
+	<!-- Latest compiled and minified JavaScript for Bootstrap-->
+	<script src="frameworks/bootstrap.min.js"></script>
+	
+	<!-- AngularJS -->
+	<script src="frameworks/angular.min.js"></script>
+	<script src="frameworks/angular-route.min.js"></script>
+	
+	<!--  Application Specific Javascript -->
+	<script src="mystoreSpringApp.js"></script>
+	<script src="services/userAccountService.js"></script>
+    <script src="services/salesOrderService.js"></script>
+    <script src="services/cartService.js"></script>
+    <script src="services/catalogService.js"></script>
+    <script src="controllers/viewUserAccountController.js"></script>
+    <script src="controllers/viewSalesOrderController.js"></script>
+    <script src="controllers/viewCartController.js"></script>
+    <script src="controllers/viewCatalogController.js"></script>
+ </body>
+</html>

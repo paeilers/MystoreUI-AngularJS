@@ -1,0 +1,74 @@
+</script>
+<div class="panel panel-default" ng-controller="ViewCartController as cartCtrl">
+  <div class="panel-heading">
+    <h3 class="panel-title">Cart Items</h3>
+  </div>
+  <div class="panel-body">
+      <table class="table">
+        <tr>
+            <th>Product Name</th>
+            <th>Unit Price</th>
+            <th>Quantity</th>
+            <th>Extended Price</th>
+        </tr>
+        <tr ng-repeat="cartItem in cart.items">
+            <td>{{cartItem.item.productName}}</td>
+            <td>{{cartItem.itemPrice | currency}}</td>
+            <td>{{cartItem.itemQuantity}}</td>
+            <td>{{ cartItem.itemPrice * cartItem.itemQuantity | currency }}</td>
+        </tr>
+      </table>
+  </div>
+</div> 
+      
+<div class="panel panel-default" ng-controller="ViewSalesOrderController as salesOrderCtrl">
+	<div class="panel-heading">
+		<h4 class="panel-title">Billing Address</h4>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			{{salesOrder.billToStreetNumber}} {{salesOrder.billToStreetName}} {{salesOrder.billToUnitNumber}}
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			{{salesOrder.billToCity}}, {{salesOrder.billToState}} {{salesOrder.billToZipCode}}
+		</div>
+	</div>	
+</div>
+
+<div class="panel panel-default" ng-controller="ViewSalesOrderController as salesOrderCtrl">
+    <div class="panel-heading">
+		<h4 class="panel-title">Ship To Address</h4>
+	</div>
+    Same as Billing <input type="checkbox" ng-click="copyBillingToShipping(salesOrder);" />
+    <div class="panel-body">
+        <table>
+            <tr>
+                <td>
+                    Street Number <input type="text" class="form-control" ng-model="salesOrder.shipToStreetNumber" size="10" required>{{salesOrder.shipToStreetNumber}}</input>
+                    Street Name <input type="text" class="form-control" ng-model="salesOrder.shipToStreetName" required/>
+                    Unit # <input type="text" class="form-control" ng-model="salesOrder.shipToUnitNumber" size="3"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    City <input type="text" class="form-control" ng-model="salesOrder.shipToCity" required />
+                    State <input type="text" class="form-control" ng-model="salesOrder.shipToState" size="2" required/>
+                    Zip Code <input type="text" class="form-control" ng-model="salesOrder.shipToZipCode" size="5" required/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Save to My Account <input type="checkbox" ng-show={{"salesOrder.userAccount.userAccountUID"}} />
+                </td>
+            </tr>
+        </table>
+    </div>
+        
+    <br/>
+	<div>
+	    <a href="" class="btn btn-primary" ng-click="saveShippingAddress(salesOrder);">Continue</a>
+	    <a href="#/salesOrder/billingAddress" class="btn btn-primary">Back to Billing Info</a>
+	</div>
+</div>

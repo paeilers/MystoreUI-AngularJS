@@ -1,0 +1,104 @@
+<div class="container-fluid" ng-controller="ViewSalesOrderController as salesOrderCtrl">
+    <div class="row-fluid">
+        <div class="span8">
+        	
+        	<!-- Order Items -->
+        	<table class="table table-bordered">
+        		<!--  header -->
+	            <tr class="well">
+	                <td>Product Name</td>
+	                <td>Unit Price</td>
+	                <td>Quantity</td>
+	                <td>Extended Price</td>
+	                <td></td>
+	            </tr>
+	            <tr ng-repeat="lineItem in salesOrder.lineItems | orderBy:'lineItem.item.productName'">
+	                <td>{{lineItem.item.productName}}</td>
+	                <td>{{lineItem.itemPrice | currency}}</td>
+	                <td>{{lineItem.itemQuantity}}</td>
+	                <td>{{ lineItem.itemPrice * lineItem.itemQuantity | currency }}</td>
+	                <td><a href="" class="btn btn-primary" ng-click="removeOrderItem(lineItem);">Remove Item</td>
+	            </tr>
+				<!-- Order Summary -->
+					<tr class="well">
+						<td colspan="5" align="right">Order Summary</td>
+					</tr>
+					<tr>
+						<td colspan="4" align="right">Sub-total: </td>
+						<td align="right">{{salesOrder.subTotal | currency}}</td>
+					</tr>
+					<tr>
+						<td colspan="4" align="right">Promotion Code: </td>
+						<td align="right">{{salesOrder.promoCode}}</td>
+					</tr>
+					<tr>
+						<td colspan="4" align="right">Discount: </td>
+						<td align="right">{{salesOrder.discount | currency}}</td>
+					</tr>
+					<tr>
+						<td colspan="4" align="right">Sales Tax: </td>
+						<td align="right">{{salesOrder.salesTax | currency}}</td>
+					</tr>
+					<tr>
+						<td colspan="4" align="right">Shipping: </td>
+						<td align="right">{{salesOrder.shipping | currency}}</td>
+					</tr>
+					<!-- footer -->
+					<tr class="well">
+						<td colspan="4" align="right"><b>TOTAL: </b></td>
+						<td align="right"><b>{{salesOrder.total | currency}}</b></td>
+					</tr>
+				</table>
+				<br/>			
+
+          	</table>
+        	
+        
+        	<!--  Billing Name and Address -->
+            <table class="table table-bordered">
+                <!-- header -->
+                <tr class="well">
+                    <td width="50%">Billing Name and Address</td>
+                    <td width="50%">Shipping Address</td>
+                </tr>
+				<tr>
+					<td>{{salesOrder.billToFirstName}} {{salesOrder.billToLastName}}</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>{{salesOrder.billToStreetNumber}} {{salesOrder.billToStreetName}} {{salesOrder.billToUnitNumber}}</td>
+					<td>{{salesOrder.shipToStreetNumber}} {{salesOrder.shipToStreetName}} {{salesOrder.shipToUnitNumber}}</td>
+				</tr>
+				<tr>
+				 	<td>
+					 	{{salesOrder.billToCity}}, {{salesOrder.billToState}} {{salesOrder.billToZipCode}}
+					</td>
+					<td>
+					 	{{salesOrder.shipToCity}}, {{salesOrder.shipToState}} {{salesOrder.shipToZipCode}}
+				 	</td>
+				</tr>
+			</table> 
+
+        	<!--  Payment Information -->
+            <table class="table table-bordered">
+                <!-- header -->
+                <tr class="well">
+                    <td colspan="2">Payment Information</td>
+                </tr>
+				<tr>
+					<td>{{salesOrder.creditCardType}} #: {{salesOrder.creditCardNumber}} Expires {{salesOrder.creditCardExpiryMonth}}/{{salesOrder.creditCardExpiryYear}}</td>
+				</tr>
+				<tr>
+					<td>Name on Card: {{salesOrder.nameOnCreditCard}}</td>
+				</tr>
+				<tr>
+					<td>Email Address: {{salesOrder.emailAddress}}</td>
+				</tr>
+			</table>
+			<br/>			
+			<div>
+			    <a href="" class="btn btn-primary" ng-click="submitSalesOrder(salesOrder);">Place Order</a>
+			</div>			
+		</div>
+	</div>
+</div>

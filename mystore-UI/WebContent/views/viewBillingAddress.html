@@ -1,0 +1,95 @@
+<div class="container-fluid" ng-controller="ViewSalesOrderController as salesOrderCtrl">
+    <div class="row-fluid">
+        <div class="span8">
+
+        	<!-- Order Items -->
+        	<table class="table table-bordered">
+        		<!--  header -->
+	            <tr class="well">
+	                <td>Product Name</td>
+	                <td>Unit Price</td>
+	                <td>Quantity</td>
+	                <td>Extended Price</td>
+	            </tr>
+	            <tr ng-repeat="lineItem in salesOrder.lineItems | orderBy:'lineItem.item.productName'">
+	                <td>{{lineItem.item.productName}}</td>
+	                <td>{{lineItem.itemPrice | currency}}</td>
+	                <td align="right">{{lineItem.itemQuantity}}</td>
+	                <td align="right">{{ lineItem.itemPrice * lineItem.itemQuantity | currency }}</td>
+	            </tr>
+	            <!-- footer -->
+                <tr class="well">
+                    <td>Total</td>
+                    <td></td>
+                    <td align="right">{{salesOrder.totalItems}}</td>
+                    <td align="right">{{salesOrder.subTotal | currency}}</td>
+                </tr>
+            </table>
+
+        	<!--  Billing Name and Address -->
+            <table class="table table-bordered">
+                <!-- header -->
+                <tr class="well">
+                    <td>Enter Billing Name and Address</td>
+                </tr>
+				<tr>
+					<td>First Name <input type="text" ng-model="salesOrder.billToFirstName" size="35" required></input>  
+					Last Name <input type="text" ng-model="salesOrder.billToLastName" size="35" required></input></td>
+				</tr>
+				<tr>
+					<td>Street # <input type="text" ng-model="salesOrder.billToStreetNumber" size="10" required></input>  
+				 	Street Name <input type="text" ng-model="salesOrder.billToStreetName" required></input>  
+				 	Unit # <input type="text" ng-model="salesOrder.billToUnitNumber" size="3"></input></td>
+				</tr>
+				<tr>
+				 	<td>
+					 	City <input type="text" ng-model="salesOrder.billToCity" required></input>  
+					 	State <input type="text" ng-model="salesOrder.billToState" size="2" required></input>  
+					 	Zip Code <input type="text" ng-model="salesOrder.billToZipCode" size="5" required></input>
+				 	</td>
+				</tr>
+				<br/>
+				<tr ng-show={{salesOrder.userAccount.userAccountUID}}>
+					<td>
+				 		Save to My Account <input type="checkbox"></input>
+				 	</td>
+				</tr> 
+			</table> 
+
+        	<!--  Shipping Address -->
+            <table class="table table-bordered">
+                <!-- header -->
+                <tr class="well">
+                    <td>Enter Shipping Address</td>
+                </tr>
+                <tr>
+					<td>
+						Same as Billing <input type="checkbox" ng-click="copyBillingToShipping(salesOrder);"></input>
+					</td>
+				</tr>
+				<tr>
+					<td>Street # <input type="text" ng-model="salesOrder.shipToStreetNumber" size="10" required></input>  
+				 	Street Name <input type="text" ng-model="salesOrder.shipToStreetName" required></input>  
+				 	Unit # <input type="text" ng-model="salesOrder.shipToUnitNumber" size="3"></input></td>
+				</tr>
+				<tr>
+				 	<td>
+					 	City <input type="text" ng-model="salesOrder.shipToCity" required></input>  
+					 	State <input type="text" ng-model="salesOrder.shipToState" size="2" required></input>  
+					 	Zip Code <input type="text" ng-model="salesOrder.shipToZipCode" size="5" required></input>
+				 	</td>
+				</tr>
+				<br/>
+				<tr ng-show={{salesOrder.userAccount.userAccountUID}}>
+					<td>
+				 		Save to My Account <input type="checkbox"></input>
+				 	</td>
+				</tr> 
+			</table> 
+	
+			<div>
+			    <a href="" class="btn btn-primary" ng-click="saveBillingAndShippingAddress(salesOrder);">Continue</a>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,53 @@
+<p class="text-info">
+    This is your shopping cart. Here you can edit the items, 
+    go back to the store, clear the cart, or check out.
+</p>
+
+<div class="container-fluid" ng-controller="ViewCartController as cartCtrl">
+    <div class="row-fluid">
+        <div class="span8">
+
+            <!-- items -->
+            <table class="table table-bordered">
+
+                <!-- header -->
+                <tr class="well">
+                    <td><b>Item</b></td>
+                    <td><b>Description</b></td>
+                    <td class="tdCenter"><b>Quantity</b></td>
+                    <td class="tdRight"><b>Unit Price</b></td>
+                    <td class="tdRight"><b>Extended Price</b></td>
+                    <td></td>
+                </tr>
+
+                <!-- empty cart message -->
+                <tr ng-hide="cart.totalItems > 0" >
+                    <td class="tdCenter" colspan="4">
+                        Your cart is empty.
+                    </td>
+                </tr>
+
+                <!-- cart items -->
+	            <tr ng-repeat="cartItem in cart.items | orderBy:'item.productName'">
+	                <td>{{cartItem.item.productName}}</td>
+	                <td>{{cartItem.item.productDescription}}</td>
+	                <td><input type="number" ng-model="cartItem.itemQuantity" min="1" max="25" required></input></td>
+	                <td>{{cartItem.itemPrice | currency}}</td>
+	                <td class="tdRight">{{ cartItem.itemPrice * cartItem.itemQuantity | currency }}</td>
+	                <td class="tdCenter"><a href="" class="btn btn-primary" ng-click="removeCartItem(cartItem);">Remove Item</td>
+	            </tr>
+	            
+                <!-- footer -->
+                <tr class="well">
+                    <td colspan="6"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- buttons -->
+    <div>
+		<a href="" class="btn btn-danger" ng-click="clearCart()" ng-disabled="cart.totalItems < 1" >Clear Cart</a>
+        <a href="" class="btn btn-primary" ng-click="createSalesOrder(cart.items);">Check Out</a>
+    </div>
+</div>

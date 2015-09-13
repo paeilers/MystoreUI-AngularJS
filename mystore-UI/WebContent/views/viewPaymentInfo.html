@@ -1,0 +1,99 @@
+<div class="container-fluid" ng-controller="ViewSalesOrderController as salesOrderCtrl">
+    <div class="row-fluid">
+        <div class="span8">
+
+        	<!-- Order Items -->
+        	<table class="table table-bordered">
+        		<!--  header -->
+	            <tr class="well">
+	                <td>Product Name</td>
+	                <td>Unit Price</td>
+	                <td>Quantity</td>
+	                <td>Extended Price</td>
+	            </tr>
+	            <tr ng-repeat="lineItem in salesOrder.lineItems | orderBy:'lineItem.item.productName'">
+	                <td>{{lineItem.item.productName}}</td>
+	                <td>{{lineItem.itemPrice | currency}}</td>
+	                <td align="right">{{lineItem.itemQuantity}}</td>
+	                <td align="right">{{ lineItem.itemPrice * lineItem.itemQuantity | currency }}</td>
+	            </tr>
+	            <!-- footer -->
+                <tr class="well">
+                    <td>Total</td>
+                    <td></td>
+                    <td align="right">{{salesOrder.totalItems}}</td>
+                    <td align="right">{{salesOrder.subTotal | currency}}</td>
+                </tr>
+            </table>
+
+        	<!--  Billing Name and Address -->
+            <table class="table table-bordered">
+                <!-- header -->
+                <tr class="well">
+                    <td width="50%">Billing Name and Address</td>
+                    <td width="50%">Shipping Address</td>
+                </tr>
+				<tr>
+					<td>{{salesOrder.billToFirstName}} {{salesOrder.billToLastName}}</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>{{salesOrder.billToStreetNumber}} {{salesOrder.billToStreetName}} {{salesOrder.billToUnitNumber}}</td>
+					<td>{{salesOrder.shipToStreetNumber}} {{salesOrder.shipToStreetName}} {{salesOrder.shipToUnitNumber}}</td>
+				</tr>
+				<tr>
+				 	<td>
+					 	{{salesOrder.billToCity}}, {{salesOrder.billToState}} {{salesOrder.billToZipCode}}
+					</td>
+					<td>
+					 	{{salesOrder.shipToCity}}, {{salesOrder.shipToState}} {{salesOrder.shipToZipCode}}
+				 	</td>
+				</tr>
+			</table> 
+
+        	<!--  Payment Information -->
+            <table class="table table-bordered">
+                <!-- header -->
+                <tr class="well">
+                    <td colspan="2">Enter Payment Information</td>
+                </tr>
+				<tr>
+					<td>
+						<label for="salesOrder.creditCardType" size="25"> Credit Card Type </label>
+			      		<select style="width=400px" ng-model="salesOrder.creditCardType" required>
+				          <option value="American Express">American Express</option>
+				          <option value="Master Card">Master Card</option>
+				          <option value="Visa">Visa</option>
+				          <option value="Discover">Discover</option>
+			      		</select>						
+					</td>
+					<td valign="middle">
+        				Name On Card <input type="text" ng-model="salesOrder.nameOnCreditCard" size="50" required></input>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Credit Card Number <input type="text" ng-model="salesOrder.creditCardNumber" size="12" required></input>   CSV <input type="text" ng-model="salesOrder.creditCardCsv" size="3" required></input>
+					</td>
+					<td>
+						Expiration Date (MM/YYYY) <input type="text" ng-model="salesOrder.creditCardExpiryMonth" size="2"></input> <input type="text" ng-model="salesOrder.creditCardExpiryYear" size="4"></input>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						Promotion Code <input type="text" ng-model="salesOrder.promoCode" size="12"></input>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						Email Address <input type="email" ng-model="salesOrder.emailAddress" size="50" required></input>
+					</td>
+				</tr>
+			</table>
+			<br/>
+			<div>
+			    <a href="" class="btn btn-primary" ng-click="savePaymentInfo(salesOrder);">Review Order</a>
+			</div>			
+		</div>
+	</div>
+</div>
